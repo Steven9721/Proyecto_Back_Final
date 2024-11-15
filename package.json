@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "proyecto de fin de año ficha 2902093",
+  "type" : "module",
+  "main": "server.js",
+  "scripts": {
+    "prueba1" : "node server.js",
+    "dev" : "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Steven9721/Proyecto_Back_Final.git"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "Porther Steven Lopez Peralta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Steven9721/Proyecto_Back_Final/issues"
+  },
+  "homepage": "https://github.com/Steven9721/Proyecto_Back_Final#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
