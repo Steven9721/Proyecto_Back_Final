@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import User from "../entities/user.entity.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const userRegister = async (req, res) => {
   // Desestructurar el body
@@ -40,6 +41,37 @@ export const userRegister = async (req, res) => {
   }
 };
 
-export const userLogin = (req, res) => {
-  res.send("Login de usuarios");
+export const userLogin = async (req, res) => {
+  //Desestructurar el objeto request
+  const {email, password} =req.body
+  //Encontrar al usuario por email.
+  const user=await User.findOne({email})
+  if(user){
+     //Si el usuario existe, comparar los hash
+  if(await bcrypt.compare(password, user.password)){
+    //res.send('Usuario autenticado')
+    res.status(200).json({
+      id: user._id,
+      name: user.firstName,
+      token: generarToken(user._id)
+    })
+  } else{
+    res.status(404).json({
+      "message": 'Credenciales invalidas'
+    })
+  }
+  } else {
+    res.status(404).json({
+      "message": 'Credenciales invalidas'
+    })
+  }
+ 
+
 };
+
+//Crear funcion que retorne el token
+const generarToken = (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET, {
+    expiresIn: '30d'
+  })
+}
