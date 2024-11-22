@@ -34,12 +34,27 @@ export const userRegister = async (req, res) => {
       isAdmin,
     });
 
-    res.status(201).json(newUser);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error en el registro del usuario" });
-  }
-};
+     // Generar el token para el nuevo usuario
+     const token = generarToken(newUser._id);
+
+     // Responder con todos los detalles del nuevo usuario y el token
+     res.status(201).json({
+       id: newUser._id,
+       firstName: newUser.firstName,
+       lastName: newUser.lastName,
+       email: newUser.email,
+       isAdmin: newUser.isAdmin,
+       createdAt: newUser.createdAt,  
+       updatedAt: newUser.updatedAt,  
+       __v: newUser.__v,             
+       token: token,
+     });
+   } catch (error) {
+     console.error(error);
+     res.status(500).json({ message: "Error en el registro del usuario" });
+   }
+ };
+ 
 
 export const userLogin = async (req, res) => {
   //Desestructurar el objeto request
